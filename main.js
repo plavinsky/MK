@@ -36,13 +36,9 @@ function createElementWithClass(cName, el='div') {
 }
 
 function createPlayer(playerClass, player) {
-    const $player1 = document.createElement('div');
-    $player1.classList.add(playerClass);
-    const $progressbar = document.createElement('div');
-    $progressbar.classList.add('progressbar');
-    const $character = document.createElement('character');
-    $character.classList.add('character');
-
+    const $player1 = createElementWithClass(playerClass);
+    const $progressbar = createElementWithClass('progressbar');
+    const $character = createElementWithClass('character');
     $player1.appendChild($progressbar);
     $player1.appendChild($character);
 
@@ -50,13 +46,11 @@ function createPlayer(playerClass, player) {
     $life.style.width = `${player.hp}%`;
     const $name = createElementWithClass('name');
     $name.innerText = player.name;
-
     $progressbar.appendChild($life);
     $progressbar.appendChild($name);
 
     const $img = document.createElement('img');
     $img.src = player.img;
-
     $character.appendChild($img);
     
     return $player1;
