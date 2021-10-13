@@ -43,7 +43,7 @@ function createPlayer(playerClass, player) {
     $player1.appendChild($character);
 
     const $life = createElementWithClass('life');
-    $life.style.width = `${player.hp}%`;
+    $life.style.width = player.hp + '%';
     const $name = createElementWithClass('name');
     $name.innerText = player.name;
     $progressbar.appendChild($life);
