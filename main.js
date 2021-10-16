@@ -4,9 +4,10 @@ console.log("Fight..");
 //HW-2
 ////Task0
 const player1 = {
+    player: 1,
     name: 'Sonya',
-    hp: 80,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
+    hp: 100,
+    img: 'https://media3.giphy.com/media/N5VtM9GNCJqw0/giphy.gif?cid=790b7611a83d90bc6042fdfb3bef4f0123bb788ce69e6545&rid=giphy.gif&ct=s',//'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
     weapon: ['ice', 'fire'],
     attack: function() {
         console.log(this.name + " " + "Fight!");
@@ -14,8 +15,9 @@ const player1 = {
 }
 
 const player2 = {
+    player: 2,
     name: 'Scorpion',
-    hp: 70,
+    hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
     weapon: ['hit', 'fire'],
     attack: function() {
@@ -35,8 +37,8 @@ function createElementWithClass(cName, el='div') {
     return $div;
 }
 
-function createPlayer(playerClass, player) {
-    const $player1 = createElementWithClass(playerClass);
+function createPlayer(player) {
+    const $player1 = createElementWithClass('player' + player.player);
     const $progressbar = createElementWithClass('progressbar');
     const $character = createElementWithClass('character');
     $player1.appendChild($progressbar);
@@ -52,6 +54,10 @@ function createPlayer(playerClass, player) {
     const $img = document.createElement('img');
     $img.src = player.img;
     $character.appendChild($img);
+    
+    $character.addEventListener('click', () => {
+        player.attack();
+    });
     
     return $player1;
 }
