@@ -14,7 +14,8 @@ const player1 = {
     weapon: ['ice', 'fire'],
     attack: function() {
         console.log(this.name + " " + "Fight!");
-    }
+    },
+    changeHP: changeHP,
 }
 
 const player2 = {
@@ -25,7 +26,8 @@ const player2 = {
     weapon: ['hit', 'fire'],
     attack: function() {
         console.log(this.name + " " + "Fight!");
-    }
+    },
+    changeHP: changeHP,
 }
 
 player1.attack();
@@ -69,11 +71,14 @@ function createPlayer(player) {
     return $player1;
 }
 
-function changeHP(player) {
-    const $playerLife = getEl('.player'+player.player+' .life');
-    const randomDamage = Math.ceil(Math.random()*20);
-    player.hp = ((player.hp - randomDamage) > 0) ? player.hp - randomDamage : 0;
-    $playerLife.style.width = player.hp + '%';
+function changeHP1(player) {
+    // const $playerLife = elHP.call(player);
+    // const randomDamage = Math.ceil(Math.random()*20);
+    // player.hp = ((player.hp - randomDamage) > 0) ? player.hp - randomDamage : 0;
+    
+    // $playerLife.style.width = player.hp + '%';
+    player.changeHP();
+    renderHP.call(player);
 }
 
 
@@ -113,8 +118,8 @@ $btnRand.addEventListener('click', function(){
         return;
     }
     
-    changeHP(player1);
-    changeHP(player2);
+    changeHP1(player1);
+    changeHP1(player2);
 
     if (player1.hp === 0 && player2.hp === 0)
         $arenas.appendChild(playerWins());
@@ -130,3 +135,16 @@ $btnRand.addEventListener('click', function(){
 
 
 //HW-4
+function changeHP(){
+    const randomDamage = Math.ceil(Math.random()*20);
+    this.hp = ((this.hp - randomDamage) > 0) ? this.hp - randomDamage : 0;
+}
+
+function elHP(){
+    return getEl('.player'+this.player+' .life');
+}
+
+function renderHP(){
+    const $playerLife = elHP.call(this);
+    $playerLife.style.width = this.hp + '%';
+}
