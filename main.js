@@ -76,25 +76,15 @@ function changeHP(player) {
     $playerLife.style.width = player.hp + '%';
 }
 
-function playerLose(name) {
-    const $loseTitle = createElementWithClass('loseTitle');
-    $loseTitle.innerText = name + ' lose';
-
-    return $loseTitle;
-}
 
 function playerWins(name) {
     const $loseTitle = createElementWithClass('loseTitle');
-    $loseTitle.innerText = name + ' wins';
+    if (name)
+        $loseTitle.innerText = name + ' wins';
+    else  
+        $loseTitle.innerText = 'draw';
 
     return $loseTitle;
-}
-
-function draw() {
-    const $drawTitle = createElementWithClass('loseTitle');
-    $drawTitle.innerText = 'DRAW';
-
-    return $drawTitle;
 }
 
 function resetHP(player) {
@@ -119,8 +109,7 @@ $btnRand.addEventListener('click', function(){
         $btnRand.innerText = ' RANDOM ';
         const $loseTitle = getEl('.loseTitle');
         $loseTitle.outerHTML = "";
-        //$arenas.removeChild(loseTitle);
-
+        
         return;
     }
     
@@ -128,7 +117,7 @@ $btnRand.addEventListener('click', function(){
     changeHP(player2);
 
     if (player1.hp === 0 && player2.hp === 0)
-        $arenas.appendChild(draw());
+        $arenas.appendChild(playerWins());
     else if (player1.hp === 0)
         $arenas.appendChild(playerWins(player2.name));
     else if (player2.hp === 0)
@@ -138,3 +127,6 @@ $btnRand.addEventListener('click', function(){
         $btnRand.innerText = ' RESET ';
 
 })
+
+
+//HW-4
