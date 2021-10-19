@@ -15,10 +15,10 @@ const player1 = {
     attack: function() {
         console.log(this.name + " " + "Fight!");
     },
-    changeHP: changeHP,
-    elHP: elHP,
-    renderHP: renderHP,
-    resetHP: resetHP,
+    changeHP,
+    elHP,
+    renderHP,
+    resetHP,
 }
 
 const player2 = {
@@ -30,10 +30,10 @@ const player2 = {
     attack: function() {
         console.log(this.name + " " + "Fight!");
     },
-    changeHP: changeHP,
-    elHP: elHP,
-    renderHP: renderHP,
-    resetHP: resetHP,
+    changeHP,
+    elHP,
+    renderHP,
+    resetHP,
 }
 
 player1.attack();
