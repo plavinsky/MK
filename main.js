@@ -87,9 +87,9 @@ function playerWins(name) {
     return $loseTitle;
 }
 
-function resetHP(player) {
+function resetHP() {
     this.hp = 100;
-    this.renderHP()
+    this.renderHP(elHP.call(this));
 }
 
 
@@ -115,11 +115,11 @@ $btnRand.addEventListener('click', function(){
         return;
     }
     
-    player1.changeHP(Math.ceil(Math.random()*20));
-    player1.renderHP();
+    player1.changeHP(getRandom());
+    player1.renderHP(player1.elHP());
 
-    player2.changeHP();
-    player2.renderHP();
+    player2.changeHP(getRandom());
+    player2.renderHP(player2.elHP());
 
     if (player1.hp === 0 && player2.hp === 0)
         $arenas.appendChild(playerWins());
@@ -139,7 +139,7 @@ $btnRand.addEventListener('click', function(){
 
 
 //HW-4 functions
-function changeHP(damage = Math.ceil(Math.random()*20)){
+function changeHP(damage = getRandom()){
     this.hp = ((this.hp - damage) > 0) ? this.hp - damage : 0;
 }
 
@@ -147,8 +147,7 @@ function elHP(){
     return getEl('.player'+this.player+' .life');
 }
 
-function renderHP(){
-    const $playerLife = elHP.call(this);
+function renderHP($playerLife){
     $playerLife.style.width = this.hp + '%';
 }
 
@@ -164,4 +163,8 @@ function createReloadButton(){
     $reloadWrap.appendChild($restartBtn);
 
     return $reloadWrap;
+}
+
+function getRandom(limit = 20){
+    return Math.ceil(Math.random()*limit);
 }
