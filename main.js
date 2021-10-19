@@ -89,7 +89,7 @@ function playerWins(name) {
 
 function resetHP() {
     this.hp = 100;
-    this.renderHP(elHP.call(this));
+    this.renderHP();
 }
 
 
@@ -116,10 +116,10 @@ $btnRand.addEventListener('click', function(){
     }
     
     player1.changeHP(getRandom());
-    player1.renderHP(player1.elHP());
+    player1.renderHP();
 
     player2.changeHP(getRandom());
-    player2.renderHP(player2.elHP());
+    player2.renderHP();
 
     if (player1.hp === 0 && player2.hp === 0)
         $arenas.appendChild(playerWins());
@@ -147,7 +147,8 @@ function elHP(){
     return getEl('.player'+this.player+' .life');
 }
 
-function renderHP($playerLife){
+function renderHP(){
+    const $playerLife = elHP.call(this);
     $playerLife.style.width = this.hp + '%';
 }
 
