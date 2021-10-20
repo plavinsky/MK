@@ -63,10 +63,6 @@ function createPlayer(player) {
     $img.src = player.img;
     $character.appendChild($img);
     
-    $character.addEventListener('click', () => {
-        player.attack();
-    });
-    
     return $player1;
 }
 
@@ -182,6 +178,26 @@ function enemyAttack(){
     }
 }
 
+function formAttack(){
+    const attack = {};
+
+    for (let item of $formFight) {
+        if (item.checked && item.name === 'hit')
+        {
+            attack.value = getRandom(HIT[item.value]);
+            attack.hit = item.value;
+        }
+        if (item.checked && item.name === 'defence')
+        {
+            attack.defence = item.value;
+        }   
+
+        item.checked = false;
+    }
+
+    return attack;
+}
+
 function attack(enemy, attack){
     console.log(1);
 
@@ -215,22 +231,8 @@ const $formFight = getEl(".control");
 $formFight.addEventListener('submit', function(event){
     event.preventDefault();
 
-    const attack = {};
+    const attack = formAttack();
     const enemy = enemyAttack();
-
-    for (let item of $formFight) {
-        if (item.checked && item.name === 'hit')
-        {
-            attack.value = getRandom(HIT[item.value]);
-            attack.hit = item.value;
-        }
-        if (item.checked && item.name === 'defence')
-        {
-            attack.defence = item.value;
-        }   
-
-        item.checked = false;
-    }
 
     console.log("### attack:", attack);
     console.log("### enemy:", enemy);
