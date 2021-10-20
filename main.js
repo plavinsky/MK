@@ -199,8 +199,6 @@ function formAttack(){
 }
 
 function attack(enemy, attack){
-    console.log(1);
-
     if (enemy.defence !== attack.hit)
     {
         this.changeHP(attack.value);
