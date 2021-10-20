@@ -154,7 +154,7 @@ function renderHP(){
 
 function createReloadButton(){
     $reloadWrap = createElementWithClass('reloadWrap');
-    $restartBtn = createElementWithClass('', 'button');
+    $restartBtn = createElementWithClass('button', 'button');
     $restartBtn.innerText = 'Restart';
     $restartBtn.addEventListener('click', function(){
         $restartBtn.removeEventListener('click', this);
@@ -169,3 +169,5 @@ function createReloadButton(){
 function getRandom(limit = 20){
     return Math.ceil(Math.random()*limit);
 }
+
+//HW-5
