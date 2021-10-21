@@ -198,10 +198,10 @@ function formAttack(){
     return attack;
 }
 
-function attack(enemy, attack){
-    if (enemy.defence !== attack.hit)
+function attack(attack, enemy){
+    if (attack.defence !== enemy.hit)
     {
-        this.changeHP(attack.value);
+        this.changeHP(enemy.value);
         this.renderHP();
     }
 }
