@@ -293,6 +293,7 @@ $formFight.addEventListener('submit', function(event){
 //     draw: 'Ничья - это тоже победа!'
 // };
 
+//test import
 import {logs} from "./data/logs"
 
 
