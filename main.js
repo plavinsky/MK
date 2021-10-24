@@ -292,6 +292,8 @@ const logs = {
     ],
     draw: 'Ничья - это тоже победа!'
 };
+
+
 const $chat = document.querySelector(".chat");
 const normalize = num => (num.toString().length > 1 ? num : `0${num}`);
 
@@ -325,10 +327,6 @@ function generateLogs(type, player1, player2, val=0){
             $chat.insertAdjacentHTML('afterbegin',`<p>${text}</p>`);
             break;
         case 'draw':
-            text = text
-                .replace('[time]', `${normalize(date.getHours())}:${normalize(date.getMinutes())}`)
-                .replace('[player1]', player1.name)
-                .replace('[player2]', player2.name);
             $chat.insertAdjacentHTML('afterbegin',`<p>${text}</p>`);
             break;        
         default:
