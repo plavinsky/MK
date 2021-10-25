@@ -47,22 +47,22 @@ function getEl(query) {
     return document.querySelector(query);
 }
 
-function createPlayer(player) {
-    const $player1 = createElementWithClass('player' + player.player);
+function createPlayer({player, hp, name, img}) {
+    const $player1 = createElementWithClass('player' + player);
     const $progressbar = createElementWithClass('progressbar');
     const $character = createElementWithClass('character');
     $player1.appendChild($progressbar);
     $player1.appendChild($character);
 
     const $life = createElementWithClass('life');
-    $life.style.width = player.hp + '%';
+    $life.style.width = hp + '%';
     const $name = createElementWithClass('name');
-    $name.innerText = player.name;
+    $name.innerText = name;
     $progressbar.appendChild($life);
     $progressbar.appendChild($name);
 
     const $img = document.createElement('img');
-    $img.src = player.img;
+    $img.src = img;
     $character.appendChild($img);
     
     return $player1;
@@ -300,7 +300,7 @@ const normalize = num => (num.toString().length > 1 ? num : `0${num}`);
 //startLogs(player1, player2);
 generateLogs('start', player1, player2);
 
-function generateLogs(type, player1, player2, val=0){
+function generateLogs(type, {name: name1}, {hp, name:name2}, val=0){
     let text = logs[type];
     const date = new Date();
     const time = `${normalize(date.getHours())}:${normalize(date.getMinutes())}`;
@@ -309,21 +309,21 @@ function generateLogs(type, player1, player2, val=0){
         case 'start':
             text = text
                 .replace('[time]', time)
-                .replace('[player1]', player1.name)
-                .replace('[player2]', player2.name);
+                .replace('[player1]', name1)
+                .replace('[player2]', name2);
             $chat.insertAdjacentHTML('afterbegin',`<p>${text}</p>`);
             break;
         case 'hit':
         case 'defence':
             text = text[getRandom(logs[type].length-1)]
-                .replace('[playerKick]', player1.name)
-                .replace('[playerDefence]', player2.name);
-            $chat.insertAdjacentHTML('afterbegin',`<p>[${time}] [${text}] [${val}] [${player2.hp}/100] </p>`);
+                .replace('[playerKick]', name1)
+                .replace('[playerDefence]', name2);
+            $chat.insertAdjacentHTML('afterbegin',`<p>[${time}] [${text}] [${val}] [${hp}/100] </p>`);
             break;
         case 'end':
             text = text[getRandom(logs[type].length-1)]
-                .replace('[playerWins]', player1.name)
-                .replace('[playerLose]', player2.name);
+                .replace('[playerWins]', name1)
+                .replace('[playerLose]', name2);
             $chat.insertAdjacentHTML('afterbegin',`<p>${text}</p>`);
             break;
         case 'draw':
