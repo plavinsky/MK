@@ -14,7 +14,9 @@ export default class Game {
     async start() {
 
         let players = await getPlayersAPI();
-        let p1 = players[getRandom(players.length-1)];
+        let p1 = JSON.parse(localStorage.getItem('player1'));//players[getRandom(players.length-1)];
+        if (!p1)
+            location.replace('/choose/')
         let p2 = await getRandomEnemyAPI();
 
         let player1 = new Player({
@@ -132,7 +134,8 @@ export default class Game {
         $restartBtn.innerText = 'Restart';
         $restartBtn.addEventListener('click', function(){
             $restartBtn.removeEventListener('click', this);
-            window.location.reload();
+            //window.location.reload();
+            location.replace('/choose/');
         })
     
         $reloadWrap.appendChild($restartBtn);
