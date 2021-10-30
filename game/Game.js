@@ -3,6 +3,7 @@ import { createPlayer, enemyAttack, formAttack } from "../utils/player.utils.js"
 import Player from "./Player.js";
 import { LOGS } from "../data/logs.js";
 import { getRandom, normalize } from "../utils/common.utils.js";
+import { fightAPI, getPlayersAPI, getRandomEnemyAPI } from "../services/API.js";
 
 
 export default class Game {
@@ -10,22 +11,22 @@ export default class Game {
         
     }
 
-    start() {
+    async start() {
+
+        let players = await getPlayersAPI();
+        let p1 = players[getRandom(players.length-1)];
+        let p2 = await getRandomEnemyAPI();
 
         let player1 = new Player({
-            player: 1,
-            name: 'Simba',
-            hp: 100,
-            img: 'https://media3.giphy.com/media/N5VtM9GNCJqw0/giphy.gif?cid=790b7611a83d90bc6042fdfb3bef4f0123bb788ce69e6545&rid=giphy.gif&ct=s',//'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
+            ...p1,
+            player: 1
         });
-        
+
         let player2 = new Player({
-            player: 2,
-            name: 'Scorpion',
-            hp: 100,
-            img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
-            });
-        
+            ...p2,
+            player: 2
+        });
+
         const $arenas = document.querySelector(".arenas");
         $arenas.appendChild(createPlayer(player1));
         $arenas.appendChild(createPlayer(player2));
@@ -35,14 +36,17 @@ export default class Game {
         Game.generateLogs('start', player1, player2);
         
         const $formFight = getEl(".control");
-        $formFight.addEventListener('submit', (event) => {
+        $formFight.addEventListener('submit', async (event) => {
             event.preventDefault();
         
             const attack = formAttack($formFight);
             const enemy = enemyAttack();
+
+            const res = await fightAPI(attack);
+            console.log(res);
         
-            player1.attack(attack, enemy, player2);
-            player2.attack(enemy, attack, player1);
+            player1.attack(res.player1, res.player2, player2);
+            player2.attack(res.player2, res.player1, player1);
         
             this.checkWiner($arenas, $formFight, player1, player2);
         });
